@@ -1,8 +1,9 @@
 {
     "java.project.sourcePaths": [
         "src",
+        "Aula 05",
         "Aula 01",
-        "Aula 05"
+        "Trabalho_20-03"
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
