@@ -25,7 +25,7 @@ public class Main {
 			} else if (res == 2) {
 				for (int i = 0; i < frutas.size(); i++) {
 					System.out.println("-".repeat(15));
-					System.out.println((i + 1) + " - " + frutas.get(i) );
+					System.out.println((i + 1) + " - " + frutas.get(i));
 					System.out.println("-".repeat(15));
 				}
 			}
