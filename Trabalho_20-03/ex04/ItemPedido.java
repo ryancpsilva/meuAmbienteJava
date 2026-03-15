@@ -1,12 +1,5 @@
-public class Ex04 {
-    public static void main(String[] args){
-      ItemPedido item = new ItemPedido();
-      item.nomeProduto = "Macarrão";
-      item.quantidade = 7;
-      item.valorUnitario = 45.0;
-      item.mostrarItem();
-    }
-}
+package ex04;
+
 class ItemPedido{
     String nomeProduto;
     int quantidade;
