@@ -3,7 +3,7 @@ package ex05;
 public class Main {
     public static void main(String[] args) {
 
-        ItemPedido1 item = new ItemPedido1();
+        ItemPedido item = new ItemPedido();
 
         item.nomeProduto = "Arroz";
         item.quantidade = 2;

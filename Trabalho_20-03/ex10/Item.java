@@ -1,6 +1,6 @@
-package ex05;
+package ex10;
 
-class ItemPedido {
+class Item {
     String nomeProduto;
     int quantidade;
     double valorUnitario;
