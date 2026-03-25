@@ -2,6 +2,10 @@ public class Cliente {
     private int id;
     private String nome;
 
+    public Cliente() {
+        this("Desconhecido", 0);
+    }
+
     public Cliente(String nome, int id) {
         this.nome = nome;
         this.id = id;

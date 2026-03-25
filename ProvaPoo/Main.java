@@ -6,13 +6,11 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         ListaClientes lista = new ListaClientes();
         int opcao;
-
         do {
             limparTela();
-
-            System.out.println("=================================");
-            System.out.println("      SISTEMA DE PEDIDOS");
-            System.out.println("=================================");
+            System.out.println("=".repeat(33));
+            System.out.println("        SISTEMA DE PEDIDOS");
+            System.out.println("=".repeat(33));
             System.out.println("1 - Cadastrar cliente");
             System.out.println("2 - Listar clientes");
             System.out.println("3 - Fazer pedido");
@@ -27,19 +25,29 @@ public class Main {
             switch (opcao) {
                 case 1:
                     System.out.println("=== Cadastro de Cliente ===");
-                    lista.cadastrarCliente();
+                    System.out.print("Digite o nome do cliente: ");
+                    if (lista.cadastrarCliente()) {
+                        System.out.println("Cliente cadastrado com sucesso!");
+                    } else {
+                        System.out.println("Erro ao cadastrar cliente!");
+                    }
                     pausar(sc);
                     break;
 
                 case 2:
                     System.out.println("=== Lista de Clientes ===");
+                    System.out.println("Total de clientes: " + lista.getSize());
                     lista.listarClientes();
                     pausar(sc);
                     break;
 
                 case 3:
                     System.out.println("=== Fazer Pedido ===");
-                    System.out.println("Funcionalidade em construção...");
+                    System.out.println("Qual cliente deseja fazer o pedido? (ID)");
+                    int idCliente = sc.nextInt();
+                    sc.nextLine(); // limpar buffer
+                    Pedido pedido = new Pedido(lista.getClienteById(idCliente));
+                    
                     pausar(sc);
                     break;
 
