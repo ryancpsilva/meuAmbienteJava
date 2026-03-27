@@ -16,6 +16,10 @@ public class Item { //Classe para representar um item do pedido
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public double getPreco() {
         return preco;
     }
