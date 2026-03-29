@@ -72,6 +72,15 @@ public class Pedido {
         return id;
     }
 
+    // NOVO MÉTODO: Calcula o total multiplicando a quantidade de cada item pelo seu preço
+    public double calcularTotal() {
+        double total = 0.0;
+        for (Item item : itens) {
+            total += (item.getQuantidade() * item.getPreco());
+        }
+        return total;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }

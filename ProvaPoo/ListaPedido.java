@@ -16,6 +16,8 @@ public class ListaPedido {
             for (Item i : p.getItens()) {
                 System.out.println("  - " + i.getNome() + " | Quantidade: " + i.getQuantidade() + " | Preço: R$ " + i.getPreco());
             }
+            // NOVA LINHA ABAIXO: Chama o método que criamos para exibir o total
+            System.out.println("Total do Pedido: R$ " + p.calcularTotal());
             System.out.println("-".repeat(28));
         }
     }
