@@ -4,12 +4,13 @@ public class Item { //Classe para representar um item do pedido
     private double preco;
 
     public Item() {
-        this("Item desconhecido", 0);
+        this("Item desconhecido", 0, 0);
     }
 
-    public Item(String nome, double preco) {
+    public Item(String nome, double preco, int quantidade) {
         this.nome = nome;
         this.preco = preco;
+        this.quantidade = quantidade;
     }
 
     public String getNome() {
@@ -23,5 +24,16 @@ public class Item { //Classe para representar um item do pedido
     public double getPreco() {
         return preco;
     }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
     
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
 }
