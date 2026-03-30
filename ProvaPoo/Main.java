@@ -48,21 +48,21 @@ public class Main {
                     System.out.println("Qual cliente deseja fazer o pedido? (ID)");
                     int idCliente = sc.nextInt();
                     sc.nextLine(); // limpar buffer
-                    
+
                     // Busca o cliente primeiro para validar
                     Cliente clienteEncontrado = lista.getClienteById(idCliente);
-                    
+
                     if (clienteEncontrado == null) {
                         System.out.println("Cliente não encontrado! Cadastre o cliente primeiro.");
                     } else {
                         // Cria o pedido associado ao cliente encontrado
                         Pedido pedido = new Pedido(clienteEncontrado);
-                        
+
                         char continuar;
                         do {
                             // Chama a função que pede nome, preço e quantidade do item
-                            boolean itemAdicionado = pedido.cadastrarPedido(); 
-                            
+                            boolean itemAdicionado = pedido.cadastrarPedido();
+
                             if (itemAdicionado) {
                                 System.out.print("Deseja adicionar mais um item a este pedido? (S/N): ");
                                 continuar = sc.nextLine().toLowerCase().charAt(0);
@@ -72,8 +72,8 @@ public class Main {
                                 continuar = sc.nextLine().toLowerCase().charAt(0);
                             }
                         } while (continuar == 's');
-                        
-                        // REGRA: Um pedido deve conter pelo menos um item. 
+
+                        // REGRA: Um pedido deve conter pelo menos um item.
                         if (pedido.getItens().size() > 0) {
                             listaPedidos.adicionarPedido(pedido); // Salva o pedido na memória!
                             System.out.println("\nPedido finalizado e salvo com sucesso!");
@@ -82,21 +82,33 @@ public class Main {
                             System.out.println("\nPedido cancelado, pois não possui nenhum item válido.");
                         }
                     }
-                    
+
                     pausar(sc);
                     break;
 
                 case 4:
                     System.out.println("=== Lista de Pedidos ===");
                     // Verifica se existem pedidos antes de tentar listar
-                    if (listaPedidos.list.isEmpty()) {
-                        System.out.println("Nenhum pedido cadastrado no momento.");
+
+                    System.out.println("Deseja listar os pedidos de um cliente específico? (S/N): ");
+                    char listarPorCliente = sc.nextLine().toLowerCase().charAt(0);
+
+                    if (listarPorCliente == 's') {
+                        System.out.print("Digite o ID do cliente: ");
+                        int idClienteFiltro = sc.nextInt();
+                        sc.nextLine(); // limpar buffer
+                        listaPedidos.listarPedidosPorCliente(idClienteFiltro);
                     } else {
-                        listaPedidos.listarPedidos(); // Chama o método da ListaPedido
+
+                        if (listaPedidos.list.isEmpty()) {
+                            System.out.println("Nenhum pedido cadastrado no momento.");
+                        } else {
+                            listaPedidos.listarPedidos(); // Chama o método da ListaPedido
+                        }
                     }
                     pausar(sc);
                     break;
-                    
+
                 case 0:
                     System.out.println("Saindo...");
                     break;
