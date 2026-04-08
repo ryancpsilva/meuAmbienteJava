@@ -34,19 +34,11 @@ public class Pedido {
             }
 
             if (nome.trim().isEmpty()) { // Verifica se o nome é vazio e pergunta se deseja continuar
-                System.out.println("Nome vazio! Deseja continuar? (S/N)");
-                char resposta = sc.nextLine().toLowerCase().charAt(0);
-                if (resposta == 's') { //Cadastra o item como desconhecido
-                    item.setQuantidade(quantidade);
-                    item.setPreco(preco);
-                    return true;
-                } else {
-                    System.out.println("Item não cadastrado!");
-                    return false;
-                }
+                System.out.println("Nome vazio! Não é possível cadastrar um item sem nome.");
+                return false;
             }
 
-            if (preco < 0) {
+            if (preco <= 0) {
                 System.out.println("Preço inválido! O item não pode ser cadastrado.");
                 return false;
             }
@@ -72,7 +64,8 @@ public class Pedido {
         return id;
     }
 
-    // NOVO MÉTODO: Calcula o total multiplicando a quantidade de cada item pelo seu preço
+    // NOVO MÉTODO: Calcula o total multiplicando a quantidade de cada item pelo seu
+    // preço
     public double calcularTotal() {
         double total = 0.0;
         for (Item item : itens) {

@@ -1,4 +1,4 @@
-public class Item { //Classe para representar um item do pedido
+public class Item { // Classe para representar um item do pedido
     private String nome;
     private int quantidade;
     private double preco;
@@ -28,7 +28,7 @@ public class Item { //Classe para representar um item do pedido
     public void setPreco(double preco) {
         this.preco = preco;
     }
-    
+
     public int getQuantidade() {
         return quantidade;
     }
