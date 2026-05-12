@@ -1,10 +1,6 @@
 {
     "java.project.sourcePaths": [
-        "src",
-        "Trabalho_20-03",
-        "Aula 05",
-        "Aula 01",
-        "ProvaPoo"
+        "T2_POO"
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
