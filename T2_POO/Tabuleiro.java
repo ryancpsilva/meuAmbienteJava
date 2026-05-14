@@ -1,4 +1,6 @@
 import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Tabuleiro {
     private int linhas; // dimensões do tabuleiro
@@ -11,12 +13,13 @@ public class Tabuleiro {
         this.cartas = new Carta[linhas][colunas];
     }
 
-    public void inicializar(String[] simbolos) {
+    public void inicializar(ArrayList<String>simbolos) {
+        
         Collections.shuffle(java.util.Arrays.asList(simbolos)); // Embaralha os símbolos
         int index = 0;
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunas; j++) {
-                cartas[i][j] = new Carta(i, j, simbolos[index]);
+                cartas[i][j] = new Carta(i, j, simbolos.get(index));
                 index++;
             }
         }

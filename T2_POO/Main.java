@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 public class Main {
@@ -47,8 +48,8 @@ public class Main {
     }
 
     public static void iniciarNovoJogo(Scanner sc) {
-        Tabuleiro tabuleiro = new Tabuleiro(4, 4);
-        String[] simbolos = {"A", "A", "B", "B", "C", "C", "D", "D", "E", "E", "F", "F", "G", "G", "H", "H"};
+        Tabuleiro tabuleiro = new Tabuleiro(3, 6);
+        ArrayList<String> simbolos = new ArrayList<>(); 
         
         tabuleiro.inicializar(simbolos);
         
