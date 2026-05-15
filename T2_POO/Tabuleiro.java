@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Collections;
 
-public class Tabuleiro {
+public class Tabuleiro implements Serializable {
     private int linhas; // dimensões do tabuleiro
     private int colunas;
     private Carta[][] cartas; // Matriz de cartas
