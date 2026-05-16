@@ -57,6 +57,10 @@ public class Main {
     }
 
     public static void iniciarNovoJogo(Scanner sc) {
+        System.out.print("\nDigite o nome do jogador: ");
+        String nome = sc.next();
+        Jogador jogador = new Jogador(nome);
+        
         Tabuleiro tabuleiro = new Tabuleiro(3, 6);
         ArrayList<String> simbolos = new ArrayList<>(); 
         
