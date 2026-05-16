@@ -1,7 +1,6 @@
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Tabuleiro implements Serializable {
     private int linhas; // dimensões do tabuleiro
@@ -15,12 +14,16 @@ public class Tabuleiro implements Serializable {
     }
 
     public void inicializar(ArrayList<String>simbolos) {
-        
-        Collections.shuffle(java.util.Arrays.asList(simbolos)); // Embaralha os símbolos
+        ArrayList<String> simbolosParaTabuleiro = new ArrayList<>();
+
+        simbolosParaTabuleiro.addAll(simbolos);
+        simbolosParaTabuleiro.addAll(simbolos); // DUPLICA
+
+        Collections.shuffle(simbolosParaTabuleiro); // Embaralha os símbolos
         int index = 0;
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunas; j++) {
-                cartas[i][j] = new Carta(i, j, simbolos.get(index));
+                cartas[i][j] = new Carta(i, j, simbolosParaTabuleiro.get(index));
                 index++;
             }
         }
@@ -74,5 +77,17 @@ public class Tabuleiro implements Serializable {
             carta2.setVirada(false);
             return false;
         }
+    }
+
+    public int getLinhas() {
+        return linhas;
+    }
+
+    public int getColunas() {
+        return colunas;
+    }
+
+    public Carta[][] getCartas() {
+        return cartas;
     }
 }

@@ -48,7 +48,8 @@ public class Carta implements Serializable {
         if (virada) {
             return simbolo; // Retorna o símbolo se a carta estiver virada
         } else {
-            return "X"; // Retorna "X" se a carta estiver virada para baixo
+            return simbolo;
+            // return "X"; // Retorna "X" se a carta estiver virada para baixo
         }
     }
 

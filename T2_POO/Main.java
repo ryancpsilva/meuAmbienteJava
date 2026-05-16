@@ -58,20 +58,49 @@ public class Main {
 
     public static void iniciarNovoJogo(Scanner sc) {
         System.out.print("\nDigite o nome do jogador: ");
-        String nome = sc.next();
+        sc.nextLine(); // Limpa o buffer do scanner
+        String nome = sc.nextLine();
         Jogador jogador = new Jogador(nome);
-        
-        Tabuleiro tabuleiro = new Tabuleiro(3, 6);
-        ArrayList<String> simbolos = new ArrayList<>(); 
-        
-        tabuleiro.inicializar(simbolos);
-        
-        System.out.println("\n--- NOVO JOGO INICIADO ---");
-        System.out.println("Boa sorte, " + jogador.getNome() + "!");
 
-        // Cria uma nova partida com 0 pares encontrados e envia para o loop principal
-        Partida novaPartida = new Partida(jogador, tabuleiro, 0);
-        executarPartida(sc, novaPartida);
+        System.out.println("Gostaria de jogar em um tabuleiro Fácil (4x4, 8 pares), Médio (6x6, 18 pares) ou Difícil (8x8, 32 pares)?");
+        System.out.print("Digite 1 para Fácil, 2 para Médio ou 3 para Difícil: ");
+        
+            int dificuldade = sc.nextInt();
+            Tabuleiro tabuleiro;
+
+            switch (dificuldade) {
+                case 1:
+                    tabuleiro = new Tabuleiro(4, 4);
+                    break;
+                case 2:
+                    tabuleiro = new Tabuleiro(6, 6);
+                    break;
+                case 3:
+                    tabuleiro = new Tabuleiro(8, 8);
+                    break;
+            
+                default:
+                    System.out.println("\n[ERRO] Dificuldade inválida! Usando Fácil.");
+                    tabuleiro = new Tabuleiro(4, 4);
+                    break;
+                
+            }
+    
+
+            ArrayList<String> simbolos = new ArrayList<>();
+            
+            for (int i = 0; i < tabuleiro.getLinhas() * tabuleiro.getColunas() / 2; i++) {
+                simbolos.add(Character.toString((char) ('A' + i)));
+            }
+            
+            tabuleiro.inicializar(simbolos);
+            
+            System.out.println("\n--- NOVO JOGO INICIADO ---");
+            System.out.println("Boa sorte, " + jogador.getNome() + "!");
+    
+            // Cria uma nova partida com 0 pares encontrados e envia para o loop principal
+            Partida novaPartida = new Partida(jogador, tabuleiro, 0);
+            executarPartida(sc, novaPartida);
     }
 
     // Novo método que concentra o loop de jogadas
@@ -80,7 +109,7 @@ public class Main {
         Jogador jogador = partida.getJogador();
         Tabuleiro tabuleiro = partida.getTabuleiro();
         int paresEncontrados = partida.getParesEncontrados();
-        int totalPares = 8; // Considerando o tabuleiro 4x4 padrão
+        int totalPares = tabuleiro.getLinhas() * tabuleiro.getColunas() / 2; // Calcula o total de pares com base no tamanho do tabuleiro
 
         while (true) {
             System.out.println("\n--- Status do Tabuleiro ---");
@@ -89,7 +118,7 @@ public class Main {
             System.out.println("--- Sua vez de jogar! ---");
             
             try {
-                System.out.print("Digite a linha da 1ª carta (1-4) ou digite 0 para SALVAR e SAIR: ");
+                System.out.print("Digite a linha da 1ª carta (1-" + tabuleiro.getLinhas() + ") ou digite 0 para SALVAR e SAIR: ");
                 int linha1 = sc.nextInt(); 
 
                 // Lógica de Salvamento e saída do jogo
@@ -99,17 +128,18 @@ public class Main {
                     return; // Encerra o método executarPartida e volta para o menu principal
                 }
 
-                System.out.print("Digite a coluna da 1ª carta (1-4): ");
+                System.out.print("Digite a coluna da 1ª carta (1-" + tabuleiro.getColunas() + "): ");
                 int coluna1 = sc.nextInt(); 
 
-                System.out.print("Digite a linha da 2ª carta (1-4): ");
+                System.out.print("Digite a linha da 2ª carta (1-" + tabuleiro.getLinhas() + "): ");
                 int linha2 = sc.nextInt(); 
-                System.out.print("Digite a coluna da 2ª carta (1-4): ");
+                System.out.print("Digite a coluna da 2ª carta (1-" + tabuleiro.getColunas() + "): ");
                 int coluna2 = sc.nextInt(); 
                 
-                if (linha1 < 1 || linha1 > 4 || coluna1 < 1 || coluna1 > 4 || 
-                    linha2 < 1 || linha2 > 4 || coluna2 < 1 || coluna2 > 4) {
-                    System.out.println("\n[ERRO] Coordenada inválida! Você deve digitar números entre 1 e 4.");
+                if (linha1 < 1 || linha1 > tabuleiro.getLinhas() || coluna1 < 1 || coluna1 > tabuleiro.getColunas() || 
+                    linha2 < 1 || linha2 > tabuleiro.getLinhas() || coluna2 < 1 || coluna2 > tabuleiro.getColunas()) {
+                    System.out.println("\n[ERRO] Coordenada inválida! Você deve digitar números entre 1 e " + tabuleiro.getLinhas() + ".");
+
                     continue; 
                 }
 
