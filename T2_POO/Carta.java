@@ -1,4 +1,6 @@
-public class Carta {
+import java.io.Serializable;
+
+public class Carta implements Serializable {
     private int linha; // posição da carta no tabuleiro
     private int coluna;
     private String simbolo; // Conteúdo da carta
