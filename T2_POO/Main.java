@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 import java.io.IOException;
 
+
 public class Main {
 
     public static void main(String[] args) {
@@ -42,7 +43,9 @@ public class Main {
                         }
                         break;
                     case 3:
-                        ui.exibirMensagem("\n[Funcionalidade em desenvolvimento: Melhores Placares]");
+                        ui.limparConsole();
+                        GerenciadorRanking.exibirRanking(ui);
+                        ui.esperarEnter();
                         break;
                     case 4:
                         ui.exibirMensagem("\nSaindo do jogo... Até a próxima!");
@@ -175,6 +178,13 @@ public class Main {
                     ui.exibirMensagem("\n🎉 VITÓRIA! Você encontrou todos os pares!");
                     ui.exibirMensagem("=== RESUMO DA PARTIDA ===");
                     ui.exibirMensagem(jogador.toString());
+
+                    // --- SALVA NO RANKING ---
+                    GerenciadorRanking.adicionarAoRanking(jogador);
+                    ui.exibirMensagem("\nSeu placar foi salvo no ranking!");
+                    ui.esperarEnter();
+                    // ------------------------
+                    
                     break; // Sai do loop de jogo e volta ao menu
                 }
 

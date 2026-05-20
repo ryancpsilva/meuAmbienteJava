@@ -5,12 +5,13 @@ import java.util.ArrayList;
 public class Tabuleiro implements Serializable {
     private int linhas; // dimensões do tabuleiro
     private int colunas;
-    private Carta[][] cartas; // Matriz de cartas
+    
+    private Exibivel[][] cartas; // Matriz de cartas
 
     public Tabuleiro(int linhas, int colunas) {
         this.linhas = linhas;
         this.colunas = colunas;
-        this.cartas = new Carta[linhas][colunas];
+        this.cartas = new Exibivel[linhas][colunas];
     }
 
     public void inicializar(ArrayList<String> simbolos) {
@@ -52,8 +53,8 @@ public class Tabuleiro implements Serializable {
             return false;
         }
 
-        Carta carta1 = cartas[l1][c1];
-        Carta carta2 = cartas[l2][c2];
+        Exibivel carta1 = cartas[l1][c1];
+        Exibivel carta2 = cartas[l2][c2];
         carta1.setVirada(!carta1.getVirada());
         carta2.setVirada(!carta2.getVirada());
 
@@ -111,7 +112,7 @@ public class Tabuleiro implements Serializable {
         return colunas;
     }
 
-    public Carta[][] getCartas() {
+    public Exibivel[][] getCartas() {
         return cartas;
     }
 }
