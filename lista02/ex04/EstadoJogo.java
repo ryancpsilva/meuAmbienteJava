@@ -1,6 +1,11 @@
 package ex04;
 
 import java.io.Serializable;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.FileInputStream;
 
 public class EstadoJogo implements Serializable {
 
@@ -27,9 +32,7 @@ public class EstadoJogo implements Serializable {
 
         EstadoJogo estado = new EstadoJogo(tabuleiro, tentativas);
 
-        try (java.io.ObjectOutputStream oos =
-                     new java.io.ObjectOutputStream(
-                             new java.io.FileOutputStream(arquivo))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))) {
 
             oos.writeObject(estado);
 
@@ -42,9 +45,7 @@ public class EstadoJogo implements Serializable {
 
     public EstadoJogo carregarJogo(String arquivo) {
 
-        try (java.io.ObjectInputStream ois =
-                     new java.io.ObjectInputStream(
-                             new java.io.FileInputStream(arquivo))) {
+        try (ObjectInputStream ois = new ObjectInputStream( new FileInputStream(arquivo))) {
 
             EstadoJogo estado = (EstadoJogo) ois.readObject();
 
@@ -52,7 +53,7 @@ public class EstadoJogo implements Serializable {
 
             return estado;
 
-        } catch (java.io.IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             System.out.println("Erro ao carregar o jogo: " + e.getMessage());
             return null;
         }
