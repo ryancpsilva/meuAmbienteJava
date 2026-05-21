@@ -55,8 +55,8 @@ public class Tabuleiro implements Serializable {
 
         Exibivel carta1 = cartas[l1][c1];
         Exibivel carta2 = cartas[l2][c2];
-        carta1.setVirada(!carta1.getVirada());
-        carta2.setVirada(!carta2.getVirada());
+        carta1.setVirada(!carta1.isVirada());
+        carta2.setVirada(!carta2.isVirada());
 
         // Validação 2: Alguma das cartas escolhidas já está virada para cima?
         if (carta1.exibir().equals(carta1.getSimbolo()) && !carta1.exibir().equals("X") ||

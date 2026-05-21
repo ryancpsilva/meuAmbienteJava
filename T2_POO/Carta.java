@@ -44,7 +44,7 @@ public class Carta implements Exibivel, Serializable {
         this.simbolo = simbolo;
     }
 
-    public boolean getVirada() {
+    public boolean isVirada() {
         return virada;
     }
 

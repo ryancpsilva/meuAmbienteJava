@@ -1,6 +1,6 @@
 public interface Exibivel {
     String exibir();
     String getSimbolo();
-    boolean getVirada();
+    boolean isVirada();
     void setVirada(boolean virada);
 }
