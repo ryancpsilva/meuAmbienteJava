@@ -1,6 +1,8 @@
-package ex01;
+package ex04;
 
-public class Carta {
+import java.io.Serializable;
+
+public class Carta implements Serializable  {
     private int linha;
     private int coluna;
     private String simbolo;
@@ -21,9 +23,9 @@ public class Carta {
 
     public String exibir() {
         if (virada) {
-            return "[" + simbolo + "]";
+            return simbolo;
         } else {
-            return "[ X ]";
+            return "X";
         }
     }
 

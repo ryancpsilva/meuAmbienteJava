@@ -1,4 +1,4 @@
-package ex01;
+package ex02;
 
 public class Carta {
     private int linha;
@@ -21,9 +21,9 @@ public class Carta {
 
     public String exibir() {
         if (virada) {
-            return "[" + simbolo + "]";
+            return simbolo;
         } else {
-            return "[ X ]";
+            return "X";
         }
     }
 
