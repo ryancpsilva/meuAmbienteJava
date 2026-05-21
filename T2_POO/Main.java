@@ -1,17 +1,11 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-import java.io.IOException;
-
 
 public class Main {
 
     public static void main(String[] args) {
+        EstadoJogo estadoJogo = new EstadoJogo();
         Scanner sc = new Scanner(System.in);
         int opcao = 0;
         Ui ui = new Ui();
@@ -36,7 +30,7 @@ public class Main {
                         iniciarNovoJogo(sc);
                         break;
                     case 2:
-                        Partida partidaCarregada = carregarJogo();
+                        Partida partidaCarregada = estadoJogo.carregarJogo();
                         if (partidaCarregada != null) {
                             // Se carregou com sucesso, passa a partida para o loop do jogo
                             executarPartida(sc, partidaCarregada);
@@ -111,6 +105,7 @@ public class Main {
 
     // Novo método que concentra o loop de jogadas
     public static void executarPartida(Scanner sc, Partida partida) {
+        EstadoJogo estadoJogo = new EstadoJogo();
         Ui ui = new Ui();
         ui.limparConsole();
         // Extrai os dados do objeto Partida
@@ -133,7 +128,7 @@ public class Main {
                 // Lógica de Salvamento e saída do jogo
                 if (linha1 == 0) {
                     Partida partidaAtual = new Partida(jogador, tabuleiro, paresEncontrados);
-                    salvarJogo(partidaAtual);
+                    estadoJogo.salvarJogo(partidaAtual);
                     return; // Encerra o método executarPartida e volta para o menu principal
                 }
 
@@ -197,38 +192,4 @@ public class Main {
             }
         }
     }
-
-    public static void salvarJogo(Partida partida) {
-        Ui ui = new Ui();
-        Path path = Paths.get("save_memoria.dat");
-
-        try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(path))) {
-            oos.writeObject(partida);
-            ui.exibirMensagem("\n[SUCESSO] Jogo salvo com sucesso!");
-        } catch (IOException e) {
-            ui.exibirMensagem("\n[ERRO] Não foi possível salvar o jogo: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    public static Partida carregarJogo() {
-        Ui ui = new Ui();
-        Path path = Paths.get("save_memoria.dat");
-
-        if (!Files.exists(path)) {
-            ui.exibirMensagem("\n[AVISO] Nenhum jogo salvo encontrado.");
-            return null;
-        }
-
-        try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(path))) {
-            Partida partida = (Partida) ois.readObject();
-            ui.exibirMensagem("\n[SUCESSO] Jogo carregado com sucesso! Retomando partida de onde parou...");
-            return partida;
-        } catch (IOException | ClassNotFoundException e) {
-            ui.exibirMensagem("\n[ERRO] Não foi possível carregar o jogo: " + e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
-    }
-
 }

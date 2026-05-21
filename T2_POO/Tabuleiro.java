@@ -45,16 +45,15 @@ public class Tabuleiro implements Serializable {
             System.out.println("| " + (i + 1));
         }
     }
-
     public boolean verificarPar(int l1, int c1, int l2, int c2) {
+        Exibivel carta1 = cartas[l1][c1];
+        Exibivel carta2 = cartas[l2][c2];
         // Validação 1: O usuário escolheu exatamente a mesma coordenada duas vezes?
         if (l1 == l2 && c1 == c2) {
             System.out.println("Jogada inválida! Você não pode escolher a mesma carta duas vezes.");
+            carta1.setVirada(false); // Garante que a carta volte a ser virada
             return false;
         }
-
-        Exibivel carta1 = cartas[l1][c1];
-        Exibivel carta2 = cartas[l2][c2];
         carta1.setVirada(!carta1.isVirada());
         carta2.setVirada(!carta2.isVirada());
 
@@ -85,6 +84,10 @@ public class Tabuleiro implements Serializable {
     }
 
     public boolean revelarCarta(int linha, int coluna) {
+        if (cartas[linha][coluna].isVirada()) {
+            System.out.println("Jogada inválida! Você escolheu uma carta que já está virada.");
+            return false; // A carta já está virada
+        }
         if (linha < 0 || linha >= linhas || coluna < 0 || coluna >= colunas) {
             return false;
         }
