@@ -13,6 +13,7 @@ public class EstadoJogo {
             try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(path))) {
                 oos.writeObject(partida);
                 ui.exibirMensagem("\n[SUCESSO] Jogo salvo com sucesso!");
+                ui.esperarEnter();
             } catch (IOException e) {
                 ui.exibirMensagem("\n[ERRO] Não foi possível salvar o jogo: " + e.getMessage());
                 e.printStackTrace();
@@ -31,6 +32,7 @@ public class EstadoJogo {
             try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(path))) {
                 Partida partida = (Partida) ois.readObject();
                 ui.exibirMensagem("\n[SUCESSO] Jogo carregado com sucesso! Retomando partida de onde parou...");
+                ui.esperarEnter();
                 return partida;
             } catch (IOException | ClassNotFoundException e) {
                 ui.exibirMensagem("\n[ERRO] Não foi possível carregar o jogo: " + e.getMessage());
