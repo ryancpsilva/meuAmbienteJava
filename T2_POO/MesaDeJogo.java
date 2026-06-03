@@ -21,7 +21,7 @@ public class MesaDeJogo implements Serializable {
         for (int i = 0; i < quantidadePares; i++) {
             String letra = String.valueOf((char) ('A' + i));
             conjSimbolos.add(letra);
-            conjSimbolos.add(letra); // Insere o par
+            conjSimbolos.add(letra); 
         }
         
         Collections.shuffle(conjSimbolos);

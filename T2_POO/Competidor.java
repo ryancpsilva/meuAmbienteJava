@@ -6,7 +6,17 @@ public class Competidor implements Serializable {
     private int movimentos;
 
     public Competidor(String nickname) {
-        this.nickname = nickname;
+        if (nickname == null || nickname.trim().isEmpty()) {
+            this.nickname = "Jogador Anônimo";
+        } else {
+            this.nickname = nickname;
+        }
+        this.score = 0;
+        this.movimentos = 0;
+    }
+
+    public Competidor() {
+        this.nickname = "Jogador Anônimo";
         this.score = 0;
         this.movimentos = 0;
     }

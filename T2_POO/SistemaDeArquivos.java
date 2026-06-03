@@ -1,65 +1,75 @@
-import java.util.Scanner;
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
 
-public class ConsoleInterativo {
-    private Scanner leitor;
+public class SistemaDeArquivos {
+    private static final String ARQ_SAVE = "backup_sessao.bin";
+    private static final String ARQ_RANK = "lideres_historico.bin";
 
-    public ConsoleInterativo() {
-        this.leitor = new Scanner(System.in);
-    }
-
-    public void pausar() {
-        System.out.println("Pressione [ENTER] para avançar...");
-        leitor.nextLine();
-    }
-
-    public void higienizarTela() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                new ProcessBuilder("clear").inheritIO().start().waitFor();
-            }
-        } catch (Exception ignored) {}
-    }
-
-    public void mostrarAlerta(String msg) {
-        System.out.println(msg);
-    }
-
-    public String solicitarTexto(String prompt) {
-        System.out.print(prompt);
-        return leitor.nextLine().trim();
-    }
-
-    public int solicitarInteiro(String prompt) {
-        while (true) {
-            System.out.print(prompt);
-            try {
-                int valor = Integer.parseInt(leitor.nextLine().trim());
-                return valor;
-            } catch (NumberFormatException e) {
-                System.out.println("-> Inválido. Insira apenas números inteiros.");
-            }
+    public static void persistirSessao(RodadaAtual rodada, ConsoleInterativo console) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(ARQ_SAVE)))) {
+            oos.writeObject(rodada);
+            console.mostrarAlerta("\n[!] Progresso gravado com sucesso. Você pode voltar depois.");
+        } catch (IOException e) {
+            console.mostrarAlerta("[ERRO] Falha ao gravar progresso no disco.");
         }
     }
 
-    // Leitura inteligente de coordenadas
-    public int[] obterCoordenadasVetor(String prompt) {
-        while (true) {
-            System.out.print(prompt);
-            String entrada = leitor.nextLine().trim();
-            
-            if (entrada.equals("0")) return new int[]{0, 0}; // Código de saída
+    public static RodadaAtual recuperarSessao(ConsoleInterativo console) {
+        Path caminho = Paths.get(ARQ_SAVE);
+        if (!Files.exists(caminho)) {
+            console.mostrarAlerta("\n[!] Não há nenhuma sessão anterior salva no sistema.");
+            return null;
+        }
 
-            String[] partes = entrada.split(" ");
-            if (partes.length >= 2) {
-                try {
-                    int linha = Integer.parseInt(partes[0]);
-                    int coluna = Integer.parseInt(partes[1]);
-                    return new int[]{linha, coluna};
-                } catch (NumberFormatException ignored) {}
+        try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(caminho))) {
+            return (RodadaAtual) ois.readObject();
+        } catch (Exception e) {
+            console.mostrarAlerta("[ERRO] Arquivo de save corrompido ou inacessível.");
+            return null;
+        }
+    }
+
+    public static void registrarNoPlacar(Competidor comp) {
+        List<Competidor> lista = new ArrayList<>();
+        Path caminho = Paths.get(ARQ_RANK);
+
+        if (Files.exists(caminho)) {
+            try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(caminho))) {
+                lista = (List<Competidor>) ois.readObject();
+            } catch (Exception ignored) {}
+        }
+
+        lista.add(comp);
+        lista.sort(Comparator.comparingInt(Competidor::getMovimentos));
+
+        if (lista.size() > 10) {
+            lista = lista.subList(0, 10);
+        }
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(caminho))) {
+            oos.writeObject(lista);
+        } catch (IOException ignored) {}
+    }
+
+    public static void imprimirPlacar(ConsoleInterativo console) {
+        Path caminho = Paths.get(ARQ_RANK);
+        console.mostrarAlerta("\n--- TOP 10 COMPETIDORES ---");
+        
+        if (!Files.exists(caminho)) {
+            console.mostrarAlerta("Nenhum registro encontrado.");
+            return;
+        }
+
+        try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(caminho))) {
+            List<Competidor> lista = (List<Competidor>) ois.readObject();
+            for (int i = 0; i < lista.size(); i++) {
+                Competidor c = lista.get(i);
+                console.mostrarAlerta(String.format("%02d. %s -> Movimentos: %d | Pontos: %d", 
+                    (i + 1), c.getNickname(), c.getMovimentos(), c.getScore()));
             }
-            System.out.println("-> Formato incorreto. Digite LINHA e COLUNA separados por espaço. Ex: 2 4");
+        } catch (Exception e) {
+            console.mostrarAlerta("[ERRO] Falha ao ler os líderes.");
         }
     }
 }

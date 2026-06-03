@@ -43,13 +43,12 @@ public class ConsoleInterativo {
         }
     }
 
-    // Leitura inteligente de coordenadas
     public int[] obterCoordenadasVetor(String prompt) {
         while (true) {
             System.out.print(prompt);
             String entrada = leitor.nextLine().trim();
             
-            if (entrada.equals("0")) return new int[]{0, 0}; // Código de saída
+            if (entrada.equals("0")) return new int[]{0, 0}; 
 
             String[] partes = entrada.split(" ");
             if (partes.length >= 2) {

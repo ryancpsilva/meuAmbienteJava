@@ -1,14 +1,10 @@
 import java.io.Serializable;
 
 public class PecaTabuleiro implements ElementoVisivel, Serializable {
-    private int coordX;
-    private int coordY;
     private String iconeOculto;
     private boolean faceParaCima;
 
-    public PecaTabuleiro(int x, int y, String icone) {
-        this.coordX = x;
-        this.coordY = y;
+    public PecaTabuleiro(String icone) {
         this.iconeOculto = icone;
         this.faceParaCima = false;
     }
@@ -31,5 +27,13 @@ public class PecaTabuleiro implements ElementoVisivel, Serializable {
     @Override
     public void mudarStatusExposicao(boolean status) {
         this.faceParaCima = status;
+    }
+
+    public int getCoordX() {
+        return coordX;
+    }
+
+    public int getCoordY() {
+        return coordY;
     }
 }
