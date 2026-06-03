@@ -28,12 +28,4 @@ public class PecaTabuleiro implements ElementoVisivel, Serializable {
     public void mudarStatusExposicao(boolean status) {
         this.faceParaCima = status;
     }
-
-    public int getCoordX() {
-        return coordX;
-    }
-
-    public int getCoordY() {
-        return coordY;
-    }
 }

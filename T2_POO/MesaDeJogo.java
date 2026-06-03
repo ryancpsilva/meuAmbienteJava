@@ -29,7 +29,7 @@ public class MesaDeJogo implements Serializable {
         int cursor = 0;
         for (int l = 0; l < maxLinhas; l++) {
             for (int c = 0; c < maxColunas; c++) {
-                malha[l][c] = new PecaTabuleiro(l, c, conjSimbolos.get(cursor));
+                    malha[l][c] = new PecaTabuleiro(conjSimbolos.get(cursor));                
                 cursor++;
             }
         }
