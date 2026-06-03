@@ -23,7 +23,9 @@ public class SistemaDeArquivos {
         }
 
         try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(caminho))) {
-            return (RodadaAtual) ois.readObject();
+            RodadaAtual backup_partida = (RodadaAtual) ois.readObject();
+            console.mostrarAlerta("\n [!] Partida carregada com sucesso!!!");
+            return backup_partida;
         } catch (Exception e) {
             console.mostrarAlerta("[ERRO] Arquivo de save corrompido ou inacessível.");
             return null;
@@ -37,7 +39,9 @@ public class SistemaDeArquivos {
         if (Files.exists(caminho)) {
             try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(caminho))) {
                 lista = (List<Competidor>) ois.readObject();
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+                lista = new ArrayList<>();
+            }
         }
 
         lista.add(comp);
